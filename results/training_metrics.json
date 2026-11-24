@@ -1,0 +1,56 @@
+{
+  "model_version": "digits-mlp-v1-dc60599d0767",
+  "random_seed": 42,
+  "dataset": {
+    "name": "sklearn.datasets.load_digits",
+    "samples": 1797,
+    "features": 64,
+    "classes": 10,
+    "split": {
+      "train": 1257,
+      "validation": 270,
+      "test": 270
+    }
+  },
+  "architecture": [
+    64,
+    128,
+    64,
+    32,
+    10
+  ],
+  "training": {
+    "iterations": 48,
+    "loss": 0.0057095443750825835,
+    "validation": {
+      "accuracy": 0.9777777777777777,
+      "f1_macro": 0.9776854000605388
+    },
+    "test_sklearn": {
+      "accuracy": 0.9814814814814815,
+      "f1_macro": 0.981545125769004
+    }
+  },
+  "onnx_fp32": {
+    "accuracy": 0.9814814814814815,
+    "f1_macro": 0.981545125769004
+  },
+  "onnx_int8": {
+    "accuracy": 0.9814814814814815,
+    "f1_macro": 0.981545125769004
+  },
+  "artifacts": {
+    "digits_mlp.joblib": {
+      "bytes": 237496,
+      "sha256": "5f856ead4b35fe0a1bed82ef59526bf440b9ea52d0e1af12a274bf36ed401e31"
+    },
+    "digits_mlp_fp32.onnx": {
+      "bytes": 77452,
+      "sha256": "68d708760f22f2e9f898164c766f1f11ad95294b3f5d61fee68a1c68f48af971"
+    },
+    "digits_mlp_int8.onnx": {
+      "bytes": 25494,
+      "sha256": "dc60599d07678071a7009dc2d146d65ffdaaa12d20ff842e8e048001ca9bce01"
+    }
+  }
+}

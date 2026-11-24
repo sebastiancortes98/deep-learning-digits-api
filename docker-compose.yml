@@ -1,0 +1,16 @@
+services:
+  inference-api:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    environment:
+      ORT_INTRA_OP_THREADS: "1"
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped

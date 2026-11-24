@@ -1,0 +1,27 @@
+stages:
+  train_export_quantize:
+    cmd: python scripts/train.py
+    deps:
+      - ml/pipeline.py
+      - scripts/train.py
+    params:
+      - seed
+      - split
+      - model
+      - optimization
+    outs:
+      - models/digits_mlp_fp32.onnx
+      - models/digits_mlp_int8.onnx
+      - models/MODEL_VERSION
+    metrics:
+      - results/training_metrics.json:
+          cache: false
+  benchmark:
+    cmd: python scripts/benchmark.py
+    deps:
+      - scripts/benchmark.py
+      - models/digits_mlp_fp32.onnx
+      - models/digits_mlp_int8.onnx
+    metrics:
+      - results/benchmark.json:
+          cache: false

@@ -1,0 +1,74 @@
+{
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "processor": "not reported",
+    "onnxruntime": "1.23.2",
+    "threads_per_session": 1
+  },
+  "method": {
+    "warmup_runs": 20,
+    "measured_runs": 100,
+    "batch_sizes": [
+      1,
+      16,
+      64
+    ]
+  },
+  "models": {
+    "onnx_fp32": {
+      "artifact_bytes": 77452,
+      "session_peak_rss_delta_kib": 8984,
+      "batches": [
+        {
+          "batch_size": 1,
+          "runs": 100,
+          "latency_p50_ms": 0.008928499999999999,
+          "latency_p95_ms": 0.010136,
+          "throughput_items_per_second_at_p50": 112000.89600716808
+        },
+        {
+          "batch_size": 16,
+          "runs": 100,
+          "latency_p50_ms": 0.014397,
+          "latency_p95_ms": 0.015253,
+          "throughput_items_per_second_at_p50": 1111342.6408279503
+        },
+        {
+          "batch_size": 64,
+          "runs": 100,
+          "latency_p50_ms": 0.0341215,
+          "latency_p95_ms": 0.060511,
+          "throughput_items_per_second_at_p50": 1875650.2498424747
+        }
+      ]
+    },
+    "onnx_int8": {
+      "artifact_bytes": 25494,
+      "session_peak_rss_delta_kib": 9028,
+      "batches": [
+        {
+          "batch_size": 1,
+          "runs": 100,
+          "latency_p50_ms": 0.0106915,
+          "latency_p95_ms": 0.030306,
+          "throughput_items_per_second_at_p50": 93532.24524154703
+        },
+        {
+          "batch_size": 16,
+          "runs": 100,
+          "latency_p50_ms": 0.013881,
+          "latency_p95_ms": 0.020931,
+          "throughput_items_per_second_at_p50": 1152654.7078740725
+        },
+        {
+          "batch_size": 64,
+          "runs": 100,
+          "latency_p50_ms": 0.024948,
+          "latency_p95_ms": 0.050046,
+          "throughput_items_per_second_at_p50": 2565335.8986692317
+        }
+      ]
+    }
+  }
+}

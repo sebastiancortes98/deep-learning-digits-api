@@ -1,0 +1,15 @@
+seed: 42
+split:
+  train: 0.70
+  validation: 0.15
+  test: 0.15
+model:
+  hidden_layers: [128, 64, 32]
+  activation: relu
+  alpha: 0.0005
+  batch_size: 64
+  learning_rate_init: 0.001
+  max_iter: 250
+optimization:
+  onnx_opset: 17
+  quantization: dynamic_int8

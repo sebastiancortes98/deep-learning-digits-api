@@ -1,0 +1,10 @@
+.git
+.github
+.pytest_cache
+__pycache__
+*.pyc
+.venv
+results
+tests
+models/digits_mlp.joblib
+models/digits_mlp_fp32.onnx

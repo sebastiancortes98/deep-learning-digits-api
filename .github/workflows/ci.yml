@@ -1,0 +1,49 @@
+name: model-api-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements-train.txt
+      - name: Reproduce model artifacts
+        run: python scripts/train.py
+      - name: Run quality and API tests
+        run: pytest -q
+      - name: Run latency benchmark
+        run: python scripts/benchmark.py
+      - name: Enforce latency and quality gates
+        run: python scripts/check_gates.py
+      - name: Build container
+        run: docker build -t digit-inference:${{ github.sha }} .
+      - name: Smoke-test container
+        run: |
+          docker run -d --rm --name digit-api -p 8000:8000 digit-inference:${{ github.sha }}
+          for attempt in {1..20}; do
+            curl --fail http://127.0.0.1:8000/ready && break
+            sleep 1
+          done
+          curl --fail http://127.0.0.1:8000/ready
+          docker stop digit-api
+      - name: Upload versioned artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-and-evidence-${{ github.sha }}
+          path: |
+            models/digits_mlp_int8.onnx
+            models/MODEL_VERSION
+            results/*.json
+          retention-days: 30
